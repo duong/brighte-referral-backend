@@ -1,0 +1,29 @@
+.header {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 44px 0;
+}
+
+.logo {
+  color: #00d280;
+  fill: currentColor;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.listItem {
+  width: 60%;
+}
+
+@media only screen and (max-width: 1440px) {
+
+  .listItem {
+    width: 100%;
+  }
+}

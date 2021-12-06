@@ -1,0 +1,9 @@
+.frame {
+  padding: 0 44px;
+}
+
+@media only screen and (max-width: 760px) {
+  .frame {
+    padding: 0px;
+  }
+}

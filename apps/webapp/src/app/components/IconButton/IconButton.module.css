@@ -1,0 +1,11 @@
+.iconButton {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.iconButton > svg {
+  fill: #868383;
+  width: 24px;
+  height: 24px;
+}
