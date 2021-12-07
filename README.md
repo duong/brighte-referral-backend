@@ -159,6 +159,7 @@ I used node 15 because there were issues with node 16 - and prisma https://githu
 ### Components
 
 Added component ReferralAddModal for creating new referrals
+Added component ReferralEditModal for editing referrals
 
 ### Packages
 
