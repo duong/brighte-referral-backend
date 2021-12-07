@@ -151,3 +151,12 @@ Please add notes here. Also feel free to add any further thoughts on your implem
 improvement ideas.
 
 Happy Coding 🧑‍💻
+### components
+
+Added component ReferralAddModal for creating new referrals
+
+### packages
+
+updated @material-ui/core
+added @material-ui/lab
+added sweetalert2

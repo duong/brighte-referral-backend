@@ -9,6 +9,7 @@ import { ReactComponent as CreateIcon } from '../../../assets/create-24px.svg';
 import { ReactComponent as DeleteIcon } from '../../../assets/delete-24px.svg';
 import { Referral } from '../../types/referral';
 import { IconButton } from '../IconButton';
+import { ReferralAddModal } from '../ReferralAddModal';
 import style from './ReferralTable.module.css';
 
 const TableHeadCell: React.FC = ({ children }) => (
@@ -75,6 +76,11 @@ const ReferralTable: React.FC<ReferralTableProps> = ({ referrals }) => {
               />
             </TableRow>
           ))}
+          <TableRow key="add-modal">
+            <TableBodyCell>
+              <ReferralAddModal />
+            </TableBodyCell>
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
