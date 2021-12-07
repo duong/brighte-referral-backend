@@ -157,6 +157,13 @@ Added component ReferralAddModal for creating new referrals
 
 ### packages
 
+For functionality:
+
 updated @material-ui/core
 added @material-ui/lab
 added sweetalert2
+
+For styling:
+
+added @emotion/react
+added @emotion/styled
