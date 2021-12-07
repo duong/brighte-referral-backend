@@ -44,6 +44,35 @@ export const createReferral = async (req: Request, res: Response) => {
   res.json({ message: 'Successfully created referral', referral: { id, givenName, surName, email, phone }});
 };
 
+export const updateReferral = async (req: Request, res: Response) => {
+  const { id }: { id?: number } = req.params;
+  const { referralInput }: { referralInput?: ReferralInput } = req.body;
+
+  if (!referralInput || !referralInput.givenName || !referralInput.surName || !referralInput.email || !referralInput.phone) {
+    console.error('Missing some required inputs ', referralInput)
+    res.status(422)
+    return res.json({ message: 'Missing required inputs' })
+  }
+
+  let updateResult
+  try {
+    updateResult = await prisma.referral.update({
+      where: { id: Number(id) },
+      data: referralInput,
+    });
+  } catch (error) {
+    console.error(error)
+    res.status(500)
+    return res.json({ message: 'Internal Server Error' })
+  }
+
+  console.log('Create result', updateResult)
+
+  const { givenName, surName, email, phone } = updateResult
+
+  res.json({ message: 'Successfully updated referral', referral: { id, givenName, surName, email, phone }});
+};
+
 export const deleteReferralById = async (req: Request, res: Response) => {
   const { id }: { id?: number } = req.params;
   const referral = await prisma.referral.delete({

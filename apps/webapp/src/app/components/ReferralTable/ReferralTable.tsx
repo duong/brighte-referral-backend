@@ -13,6 +13,7 @@ import { IconButton } from '../IconButton';
 import { ReferralAddModal } from '../ReferralAddModal';
 import style from './ReferralTable.module.css';
 import Swal from 'sweetalert2'
+import { ReferralEditModal } from '../ReferralEditModal';
 
 
 const TableHeadCell: React.FC = ({ children }) => (
@@ -26,15 +27,21 @@ const TableBodyCell: React.FC = ({ children }) => (
 interface ActionBodyCellProps {
   onEditClick: () => void;
   onDeleteClick: () => void;
+  referrals: Referral[];
+  setReferrals: any;
+  referralId: number;
 }
 
 const ActionBodyCell: React.FC<ActionBodyCellProps> = ({
                                                          onEditClick,
                                                          onDeleteClick,
+                                                         referrals,
+                                                         setReferrals,
+                                                         referralId,
                                                        }) => (
   <TableCell classes={{ root: style.actionBodyCell }}>
     <IconButton onClick={onEditClick}>
-      <CreateIcon />
+      <ReferralEditModal referrals={referrals} setReferrals={setReferrals} referralId={referralId} />
     </IconButton>
     <IconButton onClick={onDeleteClick}>
       <DeleteIcon />
@@ -68,6 +75,9 @@ const ReferralTable: React.FC<ReferralTableProps> = ({ referrals, setReferrals }
               <TableBodyCell>{referral.email}</TableBodyCell>
               <TableBodyCell>{referral.phone}</TableBodyCell>
               <ActionBodyCell
+                referrals={referrals}
+                setReferrals={setReferrals}
+                referralId={referral.id}
                 onEditClick={() => {
                   console.log(`Edit referral ${referral.id} clicked`);
                 }
