@@ -48,7 +48,7 @@ export default function ReferralAddModal() {
     console.log('submitting referral', referral);
     let res
     try {
-      res = await axios.post('http://localhost:3333/referrals', { referral })
+      res = await axios.post('http://localhost:3333/referrals', { referralInput: referral })
     } catch (error) {
       console.error(error)
       setOpen(false);
@@ -61,6 +61,11 @@ export default function ReferralAddModal() {
       return 
     }
     console.log(res)
+    Swal.fire(
+      'Success',
+      `Successfully created referral ${referral.email}`,
+      'success'
+    )
     setOpen(false);
     setSubmitting(false)
     setReferral(referralInit)

@@ -167,3 +167,8 @@ For styling:
 
 added @emotion/react
 added @emotion/styled
+
+### things to add in the future
+
+- Automate unit tests with precommit hooks
+- add pagination for table
