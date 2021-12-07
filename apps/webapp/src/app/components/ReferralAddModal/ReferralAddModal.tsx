@@ -18,7 +18,12 @@ const referralInit = {
   phone: '',
 }
 
-export default function ReferralAddModal() {
+interface ReferralAddModalProps {
+  referrals: Referral[];
+  setReferrals: any;
+}
+
+const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setReferrals }) => {
   const [submitted, setSubmitted] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -69,6 +74,7 @@ export default function ReferralAddModal() {
     setOpen(false);
     setSubmitting(false)
     setReferral(referralInit)
+    setReferrals([...referrals, res.data.referral])
   };
 
   const handleChange =

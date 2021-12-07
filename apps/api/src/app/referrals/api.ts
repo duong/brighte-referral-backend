@@ -39,5 +39,16 @@ export const createReferral = async (req: Request, res: Response) => {
 
   console.log('Create result', createResult)
 
-  res.json({ message: 'Successfully created referral' });
+  const { id, givenName, surName, email, phone } = createResult
+
+  res.json({ message: 'Successfully created referral', referral: { id, givenName, surName, email, phone }});
+};
+
+export const deleteReferralById = async (req: Request, res: Response) => {
+  const { id }: { id?: number } = req.params;
+  const referral = await prisma.referral.delete({
+    where: { id: Number(id) },
+  });
+
+  res.json(referral);
 };

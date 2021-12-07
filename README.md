@@ -151,11 +151,16 @@ Please add notes here. Also feel free to add any further thoughts on your implem
 improvement ideas.
 
 Happy Coding 🧑‍💻
-### components
+
+### General notes
+
+I used node 15 because there were issues with node 16 - and prisma https://github.com/prisma/prisma/issues/6684
+
+### Components
 
 Added component ReferralAddModal for creating new referrals
 
-### packages
+### Packages
 
 For functionality:
 
@@ -168,7 +173,9 @@ For styling:
 added @emotion/react
 added @emotion/styled
 
-### things to add in the future
+### Things to add in the future
 
 - Automate unit tests with precommit hooks
 - add pagination for table
+- create api interface for frontend
+- configure fe/be routing so we don't have hard coded api urls (no localhost:port)

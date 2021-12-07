@@ -14,7 +14,7 @@ const ReferralList: React.FC = () => {
 
   return (
     <div className={style.frame}>
-      <ReferralTable referrals={referrals} />
+      <ReferralTable referrals={referrals} setReferrals={setReferrals}/>
     </div>
   );
 };
