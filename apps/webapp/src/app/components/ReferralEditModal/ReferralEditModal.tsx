@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 
 import { ReactComponent as EditIcon } from '../../../assets/create-24px.svg';
 import { updateReferral } from '../../managers/api';
+import { errorMessage } from '../../types/errorMessage';
 import { Referral } from '../../types/referral';
 import { ReferralInput } from '../../types/referralInput';
 import { IconButton } from '../IconButton';
@@ -24,10 +25,22 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
   const [submitted, setSubmitted] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [errorMessages, setErrorMessages] = React.useState({});
 
   const referralInit = referrals && referrals.length > 0 ? referrals.find(e => e.id === referralId) : null
 
   const [referral, setReferral] = React.useState<ReferralInput>(referralInit);
+  
+  const updateErrorMessages = (errors: errorMessage[] ) => {
+    const newErrorMessages = {}
+    for (let i = 0; i < errors.length; i++) {
+      const error = errors[i]
+      const parts = error.param.split('.')
+      const param = parts[1]
+      newErrorMessages[param] = error.msg
+    }
+    setErrorMessages(newErrorMessages)
+  }
 
   const handleClickOpen = () => {
     setSubmitted(false)
@@ -44,26 +57,25 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
     setSubmitting(true)
 
     const { givenName, surName, email, phone } = referral
-
-    // Check fields are filled
-    if (!givenName || !surName || !email || !phone) {
-      setSubmitting(false)
-      return
-    }
     
     console.log('submitting referral', referral);
     let res
     try {
       res = await updateReferral(referral, referralId)
-    } catch (error) {
-      console.error(error)
-      setOpen(false);
+    } catch (e) {
+      const { response: { status, data: { errors }}} = e
+      console.log(errors)
+      if (status === 400) {
+        updateErrorMessages(errors)
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong when trying to update your referral. Please try again another time.',
+        })
+        setOpen(false);
+      }
       setSubmitting(false)
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong when trying to update your referral. Please try again another time.',
-      })
       return 
     }
     console.log(res)
@@ -102,8 +114,8 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
               label="Given Name"
               variant="outlined"
               onChange={handleChange('givenName')}
-              error={submitted && !referral.givenName}
-              helperText="Required"
+              error={submitted && errorMessages['givenName']}
+              helperText={errorMessages['givenName'] || "Required"}
               disabled={submitting}
               value={referral.givenName}
             />
@@ -114,8 +126,8 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
               label="Surname"
               variant="outlined"
               onChange={handleChange('surName')}
-              error={submitted && !referral.surName}
-              helperText="Required"
+              error={submitted && errorMessages['surName']}
+              helperText={errorMessages['surName'] || "Required"}
               disabled={submitting}
               value={referral.surName}
             />
@@ -128,8 +140,8 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
               fullWidth
               variant="outlined"
               onChange={handleChange('email')}
-              error={submitted && !referral.email}
-              helperText="Required"
+              error={submitted && errorMessages['email']}
+              helperText={errorMessages['email'] || "Required"}
               disabled={submitting}
               value={referral.email}
             />
@@ -141,8 +153,8 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
               fullWidth
               variant="outlined"
               onChange={handleChange('phone')}
-              error={submitted && !referral.phone}
-              helperText="Required"
+              error={submitted && errorMessages['phone']}
+              helperText={errorMessages['phone'] || "Required"}
               disabled={submitting}
               value={referral.phone}
             />

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 
 import { ReactComponent as AddIcon } from '../../../assets/add-24px.svg';
 import { createReferral } from '../../managers/api';
+import { errorMessage } from '../../types/errorMessage';
 import { Referral } from '../../types/referral';
 import { ReferralInput } from '../../types/referralInput';
 
@@ -31,6 +32,18 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
   const [submitting, setSubmitting] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [referral, setReferral] = React.useState<ReferralInput>(referralInit);
+  const [errorMessages, setErrorMessages] = React.useState({});
+  
+  const updateErrorMessages = (errors: errorMessage[] ) => {
+    const newErrorMessages = {}
+    for (let i = 0; i < errors.length; i++) {
+      const error = errors[i]
+      const parts = error.param.split('.')
+      const param = parts[1]
+      newErrorMessages[param] = error.msg
+    }
+    setErrorMessages(newErrorMessages)
+  }
 
   const handleClickOpen = () => {
     setSubmitted(false)
@@ -47,26 +60,25 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
     setSubmitting(true)
 
     const { givenName, surName, email, phone } = referral
-
-    // Check fields are filled
-    if (!givenName || !surName || !email || !phone) {
-      setSubmitting(false)
-      return
-    }
     
     console.log('submitting referral', referral);
     let res: AxiosResponse
     try {
       res = await createReferral(referral)
-    } catch (error) {
-      console.error(error)
-      setOpen(false);
+    } catch (e) {
+      const { response: { status, data: { errors }}} = e
+      console.log(errors)
+      if (status === 400) {
+        updateErrorMessages(errors)
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong when trying to create your referral. Please try again another time.',
+        })
+        setOpen(false);
+      }
       setSubmitting(false)
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Something went wrong when trying to create your referral. Please try again another time.',
-      })
       return 
     }
     console.log(res)
@@ -105,8 +117,8 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
               label="Given Name"
               variant="outlined"
               onChange={handleChange('givenName')}
-              error={submitted && !referral.givenName}
-              helperText="Required"
+              error={submitted && errorMessages['givenName']}
+              helperText={errorMessages['givenName'] || "Required"}
               disabled={submitting}
             />
             <TextField
@@ -116,8 +128,8 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
               label="Surname"
               variant="outlined"
               onChange={handleChange('surName')}
-              error={submitted && !referral.surName}
-              helperText="Required"
+              error={submitted && errorMessages['surName']}
+              helperText={errorMessages['surName'] || "Required"}
               disabled={submitting}
             />
             <TextField
@@ -129,8 +141,8 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
               fullWidth
               variant="outlined"
               onChange={handleChange('email')}
-              error={submitted && !referral.email}
-              helperText="Required"
+              error={submitted && errorMessages['email']}
+              helperText={errorMessages['email'] || "Required"}
               disabled={submitting}
             />
             <TextField
@@ -141,8 +153,8 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
               fullWidth
               variant="outlined"
               onChange={handleChange('phone')}
-              error={submitted && !referral.phone}
-              helperText="Required"
+              error={submitted && errorMessages['phone']}
+              helperText={errorMessages['phone'] || "Required"}
               disabled={submitting}
             />
             </FormControl>
