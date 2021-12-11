@@ -165,6 +165,10 @@ Added component ReferralEditModal for editing referrals
 
 Added more apis for create, update and delete referrals
 
+### Database
+
+Added unique constraint on email field
+
 ### Tests
 
 Added more tests to .../referrals/api.spec.ts
