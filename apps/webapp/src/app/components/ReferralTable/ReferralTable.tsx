@@ -28,7 +28,7 @@ interface ActionBodyCellProps {
   onEditClick: () => void;
   onDeleteClick: () => void;
   referrals: Referral[];
-  setReferrals: any;
+  setReferrals: React.Dispatch<React.SetStateAction<Referral[]>>;
   referralId: number;
 }
 
@@ -51,7 +51,7 @@ const ActionBodyCell: React.FC<ActionBodyCellProps> = ({
 
 interface ReferralTableProps {
   referrals: Referral[];
-  setReferrals: any;
+  setReferrals: React.Dispatch<React.SetStateAction<Referral[]>>;
 }
 
 const ReferralTable: React.FC<ReferralTableProps> = ({ referrals, setReferrals }) => {

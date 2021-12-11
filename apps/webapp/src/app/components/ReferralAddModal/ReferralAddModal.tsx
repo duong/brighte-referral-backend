@@ -1,5 +1,5 @@
 import * as React from 'react';
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import Swal from 'sweetalert2'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -10,6 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import { DialogTitle, FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
 import { ReactComponent as AddIcon } from '../../../assets/add-24px.svg';
 import { ReferralInput } from '../../types/referralInput';
+import { Referral } from '../../types/referral';
 
 const referralInit = {
   givenName: '',
@@ -20,7 +21,7 @@ const referralInit = {
 
 interface ReferralAddModalProps {
   referrals: Referral[];
-  setReferrals: any;
+  setReferrals: React.Dispatch<React.SetStateAction<Referral[]>>;
 }
 
 const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setReferrals }) => {
@@ -51,7 +52,7 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
     }
     
     console.log('submitting referral', referral);
-    let res
+    let res: AxiosResponse
     try {
       res = await axios.post('http://localhost:3333/referrals', { referralInput: referral })
     } catch (error) {
