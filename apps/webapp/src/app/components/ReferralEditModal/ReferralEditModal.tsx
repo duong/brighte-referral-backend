@@ -30,6 +30,7 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
   const [referral, setReferral] = React.useState<ReferralInput>(referralInit);
 
   const handleClickOpen = () => {
+    setSubmitted(false)
     setOpen(true);
   };
 

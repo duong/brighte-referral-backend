@@ -32,6 +32,7 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
   const [referral, setReferral] = React.useState<ReferralInput>(referralInit);
 
   const handleClickOpen = () => {
+    setSubmitted(false)
     setOpen(true);
   };
 
