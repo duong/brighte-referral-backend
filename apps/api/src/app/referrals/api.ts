@@ -33,9 +33,23 @@ export const createReferral = async (req: Request, res: Response) => {
       data: referralInput,
     });
   } catch (error) {
-    console.error(error)
-    res.status(500)
-    return res.json({ message: 'Internal Server Error' })
+    if (error.code === 'P2002') {
+      res.status(400)
+      return res.json({
+        errors:[
+            {
+              value:referralInput.email,
+              msg:"That email is already in use",
+              param:"referralInput.email",
+              location:"body"
+            }
+          ]
+      })
+    } else {
+      console.error(error)
+      res.status(500)
+      return res.json({ message: 'Internal Server Error' })
+    }
   }
 
   console.log('Create result', createResult)
@@ -61,9 +75,23 @@ export const updateReferral = async (req: Request, res: Response) => {
       data: referralInput,
     });
   } catch (error) {
-    console.error(error)
-    res.status(500)
-    return res.json({ message: 'Internal Server Error' })
+    if (error.code === 'P2002') {
+      res.status(400)
+      return res.json({
+        errors:[
+            {
+              value:referralInput.email,
+              msg:"That email is already in use",
+              param:"referralInput.email",
+              location:"body"
+            }
+          ]
+      })
+    } else {
+      console.error(error)
+      res.status(500)
+      return res.json({ message: 'Internal Server Error' })
+    }
   }
 
   console.log('Create result', updateResult)
