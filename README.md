@@ -152,11 +152,13 @@ improvement ideas.
 
 Happy Coding 🧑‍💻
 
-### General notes
+### General
 
 I used node 15 because there were issues with node 16 - and prisma https://github.com/prisma/prisma/issues/6684
 
-Task 1: Update and delete referrals
+### Task Notes
+
+#### Task 1: Update and delete referrals
 
 Created component:
 - ReferralEditModal, for editing referrals
@@ -165,7 +167,7 @@ Added:
 - Backend functionality for updating app.put('/referrals/:id', createReferralValidator(), updateReferral); 
 - Backend functionality for deleting app.delete('/referrals/:id', deleteReferralById);
 
-Task 2: Create new referral entries
+#### Task 2: Create new referral entries
 
 Created component:
 - ReferralAddModal, for editing referrals
@@ -173,11 +175,14 @@ Created component:
 Added:
 - Backend functionality for creating app.post('/referrals', createReferralValidator(), createReferral); 
 
-Task 3: Validation
+#### Task 3: Validation
 
 Added:
 - Package: express-validator
 - Backend input validation for givenName, surName, email, phone
+
+Updated:
+- Database contraints on email
 
 Extras:
 
@@ -185,6 +190,7 @@ Added:
 - Api manager in /webapp/src/app/managers/api.ts
 - Frontend UI error messages passed by backend
 - Package: sweetalert2, for popup error messages for unexpected errors
+- Added extra jest unit tests for backend validation functionality
 
 ### Components
 
