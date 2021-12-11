@@ -14,12 +14,12 @@ export const expressValidator = (req: Request): ValidationError[] => {
 }
 
 export const createReferralValidator = (): ValidationChain[] => [
-	body('referralInput.givenName').notEmpty().withMessage('given name is required'),
-	body('referralInput.givenName').isLength({ min: 2, max: 200 }).withMessage('given name between 2 and 200 characters'),
-	body('referralInput.surName').notEmpty().withMessage('surname is required'),
-	body('referralInput.surName').isLength({ min: 2, max: 200 }).withMessage('surname between 2 and 200 characters'),
-	body('referralInput.email').notEmpty().withMessage('email is required'),
-	body('referralInput.email').isEmail().withMessage('email is not valid'),
-	body('referralInput.phone').notEmpty().withMessage('phone is required'),
-    body('referralInput.phone').isMobilePhone('en-AU').withMessage('phone must be a valid Australian phone number')
+	body('referralInput.givenName').notEmpty().withMessage('Given name is required'),
+	body('referralInput.givenName').isLength({ min: 2, max: 200 }).withMessage('Given name must be between 2 and 200 characters'),
+	body('referralInput.surName').notEmpty().withMessage('Surname is required'),
+	body('referralInput.surName').isLength({ min: 2, max: 200 }).withMessage('Surname must be between 2 and 200 characters'),
+	body('referralInput.email').notEmpty().withMessage('Email is required'),
+	body('referralInput.email').isEmail().withMessage('Email provided is not a valid email'),
+	body('referralInput.phone').notEmpty().withMessage('Phone is required'),
+    body('referralInput.phone').isMobilePhone('en-AU').withMessage('Phone must be a valid Australian phone number')
 ]

@@ -54,7 +54,7 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
     console.log('submitting referral', referral);
     let res
     try {
-      res = await updateReferral
+      res = await updateReferral(referral, referralId)
     } catch (error) {
       console.error(error)
       setOpen(false);

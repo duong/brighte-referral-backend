@@ -15,8 +15,8 @@ export const createReferral = async (referralInput: ReferralInput) => {
   return axios.post(`${baseUrl}/referrals`, { referralInput })
 };
 
-export const updateReferral = async (referralInput: ReferralInput) => {
-  return axios.put(`${baseUrl}/referrals`, { referralInput })
+export const updateReferral = async (referralInput: ReferralInput, id: number) => {
+  return axios.put(`${baseUrl}/referrals/${id}`, { referralInput })
 };
 
 export const deleteReferralById = async (id: number) => {
