@@ -10,6 +10,7 @@ import * as React from 'react';
 import Swal from 'sweetalert2';
 
 import { ReactComponent as AddIcon } from '../../../assets/add-24px.svg';
+import { createReferral } from '../../managers/api';
 import { Referral } from '../../types/referral';
 import { ReferralInput } from '../../types/referralInput';
 
@@ -56,7 +57,7 @@ const ReferralAddModal: React.FC<ReferralAddModalProps> = ({ referrals, setRefer
     console.log('submitting referral', referral);
     let res: AxiosResponse
     try {
-      res = await axios.post('http://localhost:3333/referrals', { referralInput: referral })
+      res = await createReferral(referral)
     } catch (error) {
       console.error(error)
       setOpen(false);

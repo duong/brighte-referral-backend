@@ -5,11 +5,11 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 import * as React from 'react';
 import Swal from 'sweetalert2';
 
 import { ReactComponent as EditIcon } from '../../../assets/create-24px.svg';
+import { updateReferral } from '../../managers/api';
 import { Referral } from '../../types/referral';
 import { ReferralInput } from '../../types/referralInput';
 import { IconButton } from '../IconButton';
@@ -54,7 +54,7 @@ const ReferralEditModal: React.FC<ReferralEditModalProps> = ({ referrals, setRef
     console.log('submitting referral', referral);
     let res
     try {
-      res = await axios.put(`http://localhost:3333/referrals/${referralId}`, { referralInput: referral })
+      res = await updateReferral
     } catch (error) {
       console.error(error)
       setOpen(false);

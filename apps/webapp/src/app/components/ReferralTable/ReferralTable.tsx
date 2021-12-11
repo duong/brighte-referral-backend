@@ -4,11 +4,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import axios from 'axios';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 import { ReactComponent as DeleteIcon } from '../../../assets/delete-24px.svg';
+import { deleteReferralById } from '../../managers/api';
 import { Referral } from '../../types/referral';
 import { IconButton } from '../IconButton';
 import { ReferralAddModal } from '../ReferralAddModal';
@@ -96,7 +96,7 @@ const ReferralTable: React.FC<ReferralTableProps> = ({ referrals, setReferrals }
                       console.log('submitting referral', referral);
                       let res
                       try {
-                        res = await axios.delete(`http://localhost:3333/referrals/${referral.id}`)
+                        res = await deleteReferralById(referral.id)
                       } catch (error) {
                         console.error(error)
                         Swal.fire({
