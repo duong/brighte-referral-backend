@@ -5,7 +5,7 @@ CREATE TABLE "Referral" (
     "updatedAt" DATETIME NOT NULL,
     "givenName" TEXT NOT NULL,
     "surName" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
+    "email" TEXT UNIQUE,
     "phone" TEXT NOT NULL,
     "addressLine" TEXT,
     "suburb" TEXT,

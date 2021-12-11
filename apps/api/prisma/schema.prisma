@@ -18,7 +18,7 @@ model Referral {
   givenName       String
   surName         String
 
-  email           String
+  email           String    @unique
   phone           String
 
   addressLine     String?
