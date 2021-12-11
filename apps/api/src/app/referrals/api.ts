@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import { validationResult } from 'express-validator';
+
 import prisma from '../prisma';
 import { ReferralInput } from '../types/referralInput';
 
@@ -20,10 +22,9 @@ export const getReferralById = async (req: Request, res: Response) => {
 export const createReferral = async (req: Request, res: Response) => {
   const { referralInput }: { referralInput?: ReferralInput } = req.body;
 
-  if (!referralInput || !referralInput.givenName || !referralInput.surName || !referralInput.email || !referralInput.phone) {
-    console.error('Missing some required inputs ', referralInput)
-    res.status(422)
-    return res.json({ message: 'Missing required inputs' })
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
 
   let createResult
@@ -48,10 +49,9 @@ export const updateReferral = async (req: Request, res: Response) => {
   const { id }: { id?: number } = req.params;
   const { referralInput }: { referralInput?: ReferralInput } = req.body;
 
-  if (!referralInput || !referralInput.givenName || !referralInput.surName || !referralInput.email || !referralInput.phone) {
-    console.error('Missing some required inputs ', referralInput)
-    res.status(422)
-    return res.json({ message: 'Missing required inputs' })
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
   }
 
   let updateResult

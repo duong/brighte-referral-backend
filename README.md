@@ -161,6 +161,14 @@ I used node 15 because there were issues with node 16 - and prisma https://githu
 Added component ReferralAddModal for creating new referrals
 Added component ReferralEditModal for editing referrals
 
+### Apis 
+
+Added more apis for create, update and delete referrals
+
+### Tests
+
+Added more tests to .../referrals/api.spec.ts
+
 ### Packages
 
 For functionality:
@@ -174,9 +182,13 @@ For styling:
 added @emotion/react
 added @emotion/styled
 
+For validation:
+added express-validator
+
 ### Things to add in the future
 
-- Automate unit tests with precommit hooks
-- add pagination for table
-- create api interface for frontend
-- configure fe/be routing so we don't have hard coded api urls (no localhost:port)
+- Automate unit tests with precommit hooks, tests must pass before code is committed
+- Add pagination for ReferralTable (semantic-ui has some examples)
+- Create api interface for frontend
+  - This could be apiManager.ts
+- Configure fe/be routing so we don't have hard coded api urls (no localhost:port)

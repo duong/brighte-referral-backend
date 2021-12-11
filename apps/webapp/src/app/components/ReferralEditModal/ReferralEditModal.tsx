@@ -16,7 +16,7 @@ import { IconButton } from '../IconButton';
 
 interface ReferralEditModalProps {
   referrals: Referral[];
-  setReferrals: React.Dispatch<React.SetStateAction<Referral[]>>;
+  setReferrals: React.Dispatch<React.SetStateAction<ReferralInput[]>>;
   referralId: number;
 }
 
