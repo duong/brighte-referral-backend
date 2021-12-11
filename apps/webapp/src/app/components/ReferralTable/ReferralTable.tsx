@@ -4,17 +4,16 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import React, { useState } from 'react';
 import axios from 'axios';
-import { ReactComponent as CreateIcon } from '../../../assets/create-24px.svg';
+import React, { useState } from 'react';
+import Swal from 'sweetalert2';
+
 import { ReactComponent as DeleteIcon } from '../../../assets/delete-24px.svg';
 import { Referral } from '../../types/referral';
 import { IconButton } from '../IconButton';
 import { ReferralAddModal } from '../ReferralAddModal';
-import style from './ReferralTable.module.css';
-import Swal from 'sweetalert2'
 import { ReferralEditModal } from '../ReferralEditModal';
-
+import style from './ReferralTable.module.css';
 
 const TableHeadCell: React.FC = ({ children }) => (
   <TableCell classes={{ root: style.tableHeadCell }}>{children}</TableCell>

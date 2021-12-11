@@ -1,16 +1,17 @@
-import * as React from 'react';
-import axios from 'axios'
-import Swal from 'sweetalert2'
+import { DialogTitle, FormControl } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import { DialogTitle, FormControl, InputLabel, Input, FormHelperText } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
+import * as React from 'react';
+import Swal from 'sweetalert2';
+
 import { ReactComponent as EditIcon } from '../../../assets/create-24px.svg';
-import { ReferralInput } from '../../types/referralInput';
 import { Referral } from '../../types/referral';
+import { ReferralInput } from '../../types/referralInput';
 import { IconButton } from '../IconButton';
 
 interface ReferralEditModalProps {
